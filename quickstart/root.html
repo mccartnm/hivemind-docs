@@ -1,0 +1,316 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Simple Example &mdash; hivemind  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Nomenclature" href="../basics/words.html" />
+    <link rel="prev" title="Installing hivemind" href="../basics/install.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> hivemind
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Quick Start</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../basics/install.html">Installing hivemind</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Simple Example</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#rootcontroller">RootController</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#service-node">Service Node</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#subscription-node">Subscription Node</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../basics/words.html">Nomenclature</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">hivemind</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Simple Example</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/quickstart/root.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="simple-example">
+<h1>Simple Example<a class="headerlink" href="#simple-example" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="rootcontroller">
+<h2>RootController<a class="headerlink" href="#rootcontroller" title="Permalink to this headline">¶</a></h2>
+<p>The first thing to set up before getting into individual nodes is the <code class="docutils literal notranslate"><span class="pre">RootController</span></code>. This controller is the “brain” of hivemind. It’s where we process the data feeds from our services and propagate our data to any subscriptions that require them. While there is a lot to go over here, we can start very simple and with only three lines of code.</p>
+<p>With a new project folder created (e.g. <code class="docutils literal notranslate"><span class="pre">mkdir</span> <span class="pre">~/repo/my_hive</span></code>), let’s create <code class="docutils literal notranslate"><span class="pre">root.py</span></code></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">hivemind</span> <span class="kn">import</span> <span class="n">RootController</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">RootController</span><span class="o">.</span><span class="n">exec_</span><span class="p">(</span><span class="n">logging</span><span class="o">=</span><span class="s1">&#39;verbose&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>That’s all we need to boot our brain. We can start that now.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>~$&gt; python root.py
+<span class="o">[</span><span class="m">18</span>/08/2019 <span class="m">11</span>:49:13 PM - INFO <span class="o">]</span>: Serving on <span class="m">9476</span>...
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If you’re getting import errors, odds are python can’t find <code class="docutils literal notranslate"><span class="pre">hivemind</span></code> on your PYTHONPATH.</p>
+</div>
+</div>
+<div class="section" id="service-node">
+<h2>Service Node<a class="headerlink" href="#service-node" title="Permalink to this headline">¶</a></h2>
+<p>With our root up and running, let’s build a service to ship some data every few seconds. We do this by sub classing the abstract <code class="docutils literal notranslate"><span class="pre">_Node</span></code>. In a new python file <code class="docutils literal notranslate"><span class="pre">test_service.py</span></code>, we set up the following:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">hivemind</span> <span class="kn">import</span> <span class="n">_Node</span>
+
+<span class="k">class</span> <span class="nc">MyPingService</span><span class="p">(</span><span class="n">_Node</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Message ship every N seconds &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">services</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Overloaded from _Node to include any initial services that</span>
+<span class="sd">        we boot our node with. Services can be turned on and off at</span>
+<span class="sd">        any time via self.add_service() and self.remove_service()</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ping_service</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_service</span><span class="p">(</span>
+            <span class="n">name</span><span class="o">=</span><span class="s1">&#39;ping-central&#39;</span><span class="p">,</span>
+            <span class="n">function</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_ping_serivce_function</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_ping_serivce_function</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This function is called on a loop until the service</span>
+<span class="sd">        is terminated. A simple service like this doesn&#39;t need</span>
+<span class="sd">        to know when we terminate as the _Node and _Service will</span>
+<span class="sd">        take care of that for us.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_my_service</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="s1">&#39;a test message&#39;</span><span class="p">)</span>
+
+        <span class="c1"># This is the best way to sleep a service as it can auto</span>
+        <span class="c1"># return if the service is aborted or the node shut down</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_my_service</span><span class="o">.</span><span class="n">sleep_for</span><span class="p">(</span><span class="mf">5.0</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="mi">0</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">MyPingService</span><span class="o">.</span><span class="n">exec_</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;ping_service&#39;</span><span class="p">,</span> <span class="n">logging</span><span class="o">=</span><span class="s1">&#39;verbose&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>There’s some really nice hints in there for what each item does. We overload <code class="docutils literal notranslate"><span class="pre">services</span></code> to build our initial service and then send a message to the controller whenever it’s required.</p>
+<p>We start the node just like our root.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>~$&gt; python test_service.py
+</pre></div>
+</div>
+<p>You should see it log a few items including the registration of the node and the service. Within the <code class="docutils literal notranslate"><span class="pre">root.py</span></code> terminal, you should see it interacting with the node and receiving a payload every 5 seconds.</p>
+</div>
+<div class="section" id="subscription-node">
+<h2>Subscription Node<a class="headerlink" href="#subscription-node" title="Permalink to this headline">¶</a></h2>
+<p>Now that we have a controller to manage data and a service to produce data, let’s utilize a consumer to work with the data. In <code class="docutils literal notranslate"><span class="pre">test_subscription.py</span></code> let’s create the following:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyPingSubscription</span><span class="p">(</span><span class="n">_Node</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Subscription to the ping service &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">subscriptions</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Overloaded from _Node to register any subscriptions. Just</span>
+<span class="sd">        like services, we can add and remove at whim.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_my_subscription</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_subscription</span><span class="p">(</span>
+            <span class="s1">&#39;ping-central&#39;</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_receive_message</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_receive_message</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">payload</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This is an endpoint that gets fired when our controller</span>
+<span class="sd">        forwards payloads.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">payload</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="k">return</span>
+        <span class="k">print</span> <span class="p">(</span><span class="n">payload</span><span class="o">.</span><span class="n">upper</span><span class="p">())</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">MyPingSubscription</span><span class="o">.</span><span class="n">exec_</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;ping_sub&#39;</span><span class="p">,</span> <span class="n">logging</span><span class="o">=</span><span class="s1">&#39;verbose&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Once done, we are ready to fire up this node and complete the cycle.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>~$&gt; python test_subscription.py
+</pre></div>
+</div>
+<p>If all goes well you should see the subscription printing out <code class="docutils literal notranslate"><span class="pre">&quot;A</span> <span class="pre">TEST</span> <span class="pre">MESSAGE&quot;</span></code> every 5 seconds.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../basics/words.html" class="btn btn-neutral float-right" title="Nomenclature" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../basics/install.html" class="btn btn-neutral" title="Installing hivemind" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Michael McCartney
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
