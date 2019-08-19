@@ -1,0 +1,268 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Primitives &mdash; hivemind  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Nomenclature" href="words.html" />
+    <link rel="prev" title="Simple Example" href="../quickstart/root.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> hivemind
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Quick Start</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart/root.html">Simple Example</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Features</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Primitives</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#layers">Layers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#the-data-layer">The Data Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#the-control-layer">The Control Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#the-node-layer">The Node Layer</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#backend">Backend</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#network">Network</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="words.html">Nomenclature</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">hivemind</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Primitives</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/basics/model.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="primitives">
+<h1>Primitives<a class="headerlink" href="#primitives" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="layers">
+<h2>Layers<a class="headerlink" href="#layers" title="Permalink to this headline">¶</a></h2>
+<p>The paradigm for service/subscription processes is not new. In fact, it’s become quite common in utilities like RabbitMQ, ROS (Robot Operating System) and others.</p>
+<p>There are three layers within <code class="docutils literal notranslate"><span class="pre">hivemind</span></code>.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>             + --------------------------------------------- +
+Data Layer &gt; |           [ Data Layer ] &lt;-- Eventually       | Backend
+             |                 |                             |
+             +-----------------|-----------------------------+
+Control    &gt; |         [    Controller   ]                   | Network
+             |           |       |      |                    |
+Node       &gt; |       [ Node ] [ Node ] [ Node ]              |
+             +-----------------------------------------------+
+</pre></div>
+</div>
+<ol class="arabic simple">
+<li>The Data Layer</li>
+<li>The Control Layer</li>
+<li>The Node Layer</li>
+</ol>
+<div class="section" id="the-data-layer">
+<h3>The Data Layer<a class="headerlink" href="#the-data-layer" title="Permalink to this headline">¶</a></h3>
+<p>This will be a layer added in after initial functionality has been written up. It will consist of a database that contains a select control groups’ identity and registration utilities. (There’s a lot more planned but leaving this for now)</p>
+</div>
+<div class="section" id="the-control-layer">
+<h3>The Control Layer<a class="headerlink" href="#the-control-layer" title="Permalink to this headline">¶</a></h3>
+<p>The control layer consists of a “manager” (eventually multiple managers) that can oversee registered nodes, their subscriptions and services, as well as dispatch messages based on the required data.</p>
+<p>As the <code class="docutils literal notranslate"><span class="pre">Data</span> <span class="pre">Layer</span></code> becomes available, some of the duties will move to that but ultimately the controller is where the brain lives.</p>
+</div>
+<div class="section" id="the-node-layer">
+<h3>The Node Layer<a class="headerlink" href="#the-node-layer" title="Permalink to this headline">¶</a></h3>
+<p>A Node is a single entity that can host any number of services and add handlers for any number of subscriptions. In optimal design, a node only ever hosts a single service but there is obviously no restriction. Each service lives on a unique thread that will do any processing required.</p>
+<p>As you add nodes to your network the root controller(s) handle the dispatching of required information for you.</p>
+</div>
+</div>
+<div class="section" id="backend">
+<h2>Backend<a class="headerlink" href="#backend" title="Permalink to this headline">¶</a></h2>
+<p>This just refers to the <code class="docutils literal notranslate"><span class="pre">Data</span> <span class="pre">Layer</span></code> but more specifically both the database and protocol working back and forth from it to the controllers.</p>
+</div>
+<div class="section" id="network">
+<h2>Network<a class="headerlink" href="#network" title="Permalink to this headline">¶</a></h2>
+<p>This is the grouping of all node-like objects including both controllers and working nodes. All communication, currently, uses basic TCP to work between each process.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="words.html" class="btn btn-neutral float-right" title="Nomenclature" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../quickstart/root.html" class="btn btn-neutral" title="Simple Example" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Michael McCartney
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
