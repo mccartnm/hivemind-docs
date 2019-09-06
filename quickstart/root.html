@@ -203,11 +203,11 @@
 <span class="sd">        to know when we terminate as the _Node and _Service will</span>
 <span class="sd">        take care of that for us.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_my_service</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="s1">&#39;a test message&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ping_service</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="s1">&#39;a test message&#39;</span><span class="p">)</span>
 
         <span class="c1"># This is the best way to sleep a service as it can auto</span>
         <span class="c1"># return if the service is aborted or the node shut down</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_my_service</span><span class="o">.</span><span class="n">sleep_for</span><span class="p">(</span><span class="mf">5.0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ping_service</span><span class="o">.</span><span class="n">sleep_for</span><span class="p">(</span><span class="mf">5.0</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="mi">0</span>
 
