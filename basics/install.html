@@ -80,13 +80,22 @@
             
               <p class="caption"><span class="caption-text">Quick Start</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Install</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Install</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#contributers">Contributers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#environment">Environment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#git">Git</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#pypi">PyPi</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="../quickstart/root.html">Simple Example</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Features</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="words.html">Interface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="model.html">Primitives</a></li>
-<li class="toctree-l1"><a class="reference internal" href="words.html">Nomenclature</a></li>
 </ul>
 
             
@@ -153,8 +162,55 @@
             
   <div class="section" id="install">
 <h1>Install<a class="headerlink" href="#install" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="prerequisites">
+<h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li>Python 3.7+</li>
+</ol>
+</div>
+<div class="section" id="contributers">
+<h2>Contributers<a class="headerlink" href="#contributers" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="environment">
+<h3>Environment<a class="headerlink" href="#environment" title="Permalink to this headline">¶</a></h3>
+<p>To set up a full development environment, it’s recommended you use a virtual environment to contain anything that the package might need.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>~$&gt; python -m venv ~/virtualenv/hm
+</pre></div>
+</div>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last"><code class="docutils literal notranslate"><span class="pre">~/virtualenv/hm</span></code> can be any path as long as you remember where you stash it.</p>
+</div>
+<p>Any time you want to enter the virtual environment, simply source it</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Unix</span>
+~$&gt; <span class="nb">source</span> ~/virtualenv/hm/bin/activate
+
+<span class="c1">#Windows</span>
+C:<span class="se">\&gt;</span> ~<span class="se">\v</span>irtualenv<span class="se">\h</span>m<span class="se">\S</span>cripts<span class="se">\a</span>ctivate
+</pre></div>
+</div>
+<p>From there, your prompt should enter the environment and alert you with a <code class="docutils literal notranslate"><span class="pre">(hm)</span></code> prefix.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="o">(</span>hm<span class="o">)</span> ~$&gt; ...
+</pre></div>
+</div>
+<p>To leave the environment, as any time, simply enter:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="o">(</span>hm<span class="o">)</span> ~$&gt; deactivate
+~$&gt;
+</pre></div>
+</div>
+</div>
+<div class="section" id="git">
+<h3>Git<a class="headerlink" href="#git" title="Permalink to this headline">¶</a></h3>
+<p>Once you have a virtual environment set up, let’s grab the source</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>~$&gt; git clone https://github.com/mccartnm/hivemind.git
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="pypi">
+<h2>PyPi<a class="headerlink" href="#pypi" title="Permalink to this headline">¶</a></h2>
 <p>Coming soon… (once available on pypi or at least <code class="docutils literal notranslate"><span class="pre">setup.py</span></code>)</p>
 <p>If you’re really itching to try, clone the <a class="reference external" href="http://github.com/mccartnm/hivemind">repo</a> and add it to your <code class="docutils literal notranslate"><span class="pre">PYTHONPATH</span></code>/use <code class="docutils literal notranslate"><span class="pre">sys.path.append</span></code> on your scripts.</p>
+</div>
 </div>
 
 
