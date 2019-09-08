@@ -17,35 +17,33 @@
   
 
   
-  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
-  
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-        <script type="text/javascript" src="_static/language_data.js"></script>
-    
-    <script type="text/javascript" src="_static/js/theme.js"></script>
 
+  
+  
     
 
   
+
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Install" href="basics/install.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
+
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
+        <div class="wy-side-nav-search">
           
 
           
@@ -154,18 +152,30 @@
             
   <div class="section" id="hivemind">
 <h1>Hivemind<a class="headerlink" href="#hivemind" title="Permalink to this headline">¶</a></h1>
-<p>The python micro service prototyping sandbox on a budget!</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Excuse the appearance while we flesh out a whole bunch of this system. If you want to get the code right away <a class="reference external" href="http://github.com/mccartnm/hivemind">grab it here</a></p>
+<a class="reference internal image-reference" href="_images/logo_flat_medium.png"><img alt="_images/logo_flat_medium.png" class="align-center" src="_images/logo_flat_medium.png" style="height: 256px;" /></a>
+<div class="section" id="the-python-micro-service-prototyping-sandbox-on-a-budget">
+<h2>The python micro service prototyping sandbox on a budget!<a class="headerlink" href="#the-python-micro-service-prototyping-sandbox-on-a-budget" title="Permalink to this headline">¶</a></h2>
 </div>
+</div>
+<div class="section" id="the-what">
+<h1>The What<a class="headerlink" href="#the-what" title="Permalink to this headline">¶</a></h1>
+<a class="reference internal image-reference" href="_images/basic_diagram.svg"><div align="center" class="align-center"><img alt="_images/basic_diagram.svg" height="350px" src="_images/basic_diagram.svg" width="350px" /></div>
+</a>
+<p>A fast, effective, way to generate independent process that can communicate through a centralized control without requiring the entire network to be up at once.</p>
 <p>The paradigm for service/subscription processes is not new. In fact, it’s become quite common in utilities like RabbitMQ, ROS (Robot Operating System) and others.</p>
 <p><code class="docutils literal notranslate"><span class="pre">hivemind</span></code> seeks to add a few features to that paradigm.</p>
 <ol class="arabic simple">
 <li><p>Insanely fast development throughput with little to know need to understand the “under-the-hood” components</p></li>
 <li><p>Lean-and-mean data layer(s) to help organize your data without any concrete overhead</p></li>
-<li><p><strong>(Most importantly)</strong> - we want to make it nearly impossible to take down.</p></li>
+<li><p><strong>(Most importantly)</strong> - we want to make it nearly impossible to take down in production environments.</p></li>
 </ol>
+</div>
+<div class="section" id="the-why">
+<h1>The Why<a class="headerlink" href="#the-why" title="Permalink to this headline">¶</a></h1>
+<a class="reference internal image-reference" href="_images/scale_diagram.svg"><div align="center" class="align-center"><img alt="_images/scale_diagram.svg" height="350px" src="_images/scale_diagram.svg" width="350px" /></div>
+</a>
+<p>In the modern app arena, we often have use for very atomic level operations that need to communicate with other such atomic services. This often leads to large waterfall code or, promises, or some form of chain-reactive system. In order to create a highly independent system, we turn to service/subscription models (also known as pub-sub models) in order to keep the low level “nodes” from needing anything but themselves and a connection to a sort-of central nervous system.</p>
+<p>This approach can take many forms and doesn’t fit all use cases but it’s a powerful tool for horizontally scaling your software.</p>
 <div class="toctree-wrapper compound">
 <p class="caption"><span class="caption-text">Quick Start</span></p>
 <ul>
@@ -188,7 +198,6 @@
 <p class="caption"><span class="caption-text">Features</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="basics/words.html">Interface</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="basics/words.html#resilience">Resilience</a></li>
 <li class="toctree-l2"><a class="reference internal" href="basics/words.html#nomenclature">Nomenclature</a></li>
 </ul>
 </li>
@@ -196,6 +205,7 @@
 <li class="toctree-l2"><a class="reference internal" href="basics/model.html#layers">Layers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="basics/model.html#backend">Backend</a></li>
 <li class="toctree-l2"><a class="reference internal" href="basics/model.html#network">Network</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/model.html#resilience">Resilience</a></li>
 </ul>
 </li>
 </ul>
@@ -245,16 +255,26 @@
   
 
 
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="_static/js/theme.js"></script>
+
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

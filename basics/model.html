@@ -17,35 +17,33 @@
   
 
   
-  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
-  
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
-    
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
 
+  
+  
     
 
   
+
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="prev" title="Interface" href="words.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
+
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
+        <div class="wy-side-nav-search">
           
 
           
@@ -96,6 +94,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#backend">Backend</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#network">Network</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#resilience">Resilience</a></li>
 </ul>
 </li>
 </ul>
@@ -205,6 +204,10 @@ Node       &gt; |       [ Node ] [ Node ] [ Node ]              |
 <h2>Network<a class="headerlink" href="#network" title="Permalink to this headline">¶</a></h2>
 <p>This is the grouping of all node-like objects including both controllers and working nodes. All communication, currently, uses basic TCP to work between each process.</p>
 </div>
+<div class="section" id="resilience">
+<h2>Resilience<a class="headerlink" href="#resilience" title="Permalink to this headline">¶</a></h2>
+<p>In almost all movies, the big bad hive mind villain is taken down by the heroes simply killing of the “brain.” This is because, ultimately, that design is flawed (duh). Instead of one omnipotent centralized control, <code class="docutils literal notranslate"><span class="pre">hivemind</span></code> attempts to avoid that catastrophic end by simply duplicating the brain and keeping a running interface between each of them. Unless <em>all</em> the brains are dead, the system lives on.</p>
+</div>
 </div>
 
 
@@ -216,7 +219,7 @@ Node       &gt; |       [ Node ] [ Node ] [ Node ]              |
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
       
-        <a href="words.html" class="btn btn-neutral float-left" title="Interface" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="words.html" class="btn btn-neutral" title="Interface" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -242,16 +245,26 @@ Node       &gt; |       [ Node ] [ Node ] [ Node ]              |
   
 
 
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>
