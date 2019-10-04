@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Simple Example &mdash; hivemind  documentation</title>
+  <title>Starting Off &mdash; hivemind  documentation</title>
   
 
   
@@ -81,11 +81,20 @@
               <p class="caption"><span class="caption-text">Quick Start</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../basics/install.html">Install</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Simple Example</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#rootcontroller">RootController</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#service-node">Service Node</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#subscription-node">Subscription Node</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#simplicity">Simplicity</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Starting Off</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#what-is-a-hive">What is a Hive</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#hm-command"><code class="docutils literal notranslate"><span class="pre">hm</span></code> Command</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#create-a-project">Create a Project</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#a-quick-recap">A Quick Recap</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#create-a-node">Create a Node</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#enable-the-node">Enable The Node</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#add-a-service">Add a Service</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#logs">Logs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#add-a-subscription">Add a Subscription</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -93,6 +102,14 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../basics/words.html">Interface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../basics/model.html">Primitives</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api/root.html">Controller</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Contributing</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../developers/codestandards.html">Code Standards</a></li>
 </ul>
 
             
@@ -138,7 +155,7 @@
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
         
-      <li>Simple Example</li>
+      <li>Starting Off</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -157,111 +174,311 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="simple-example">
-<h1>Simple Example<a class="headerlink" href="#simple-example" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="rootcontroller">
-<h2>RootController<a class="headerlink" href="#rootcontroller" title="Permalink to this headline">¶</a></h2>
-<p>The first thing to set up before getting into individual nodes is the <code class="docutils literal notranslate"><span class="pre">RootController</span></code>. This controller is the “brain” of hivemind. It’s where we process the data feeds from our services and propagate our data to any subscriptions that require them. While there is a lot to go over here, we can start very simple and with only three lines of code.</p>
-<p>With a new project folder created (e.g. <code class="docutils literal notranslate"><span class="pre">mkdir</span> <span class="pre">~/repo/my_hive</span></code>), let’s create <code class="docutils literal notranslate"><span class="pre">root.py</span></code></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">hivemind</span> <span class="kn">import</span> <span class="n">RootController</span>
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
-    <span class="n">RootController</span><span class="o">.</span><span class="n">exec_</span><span class="p">(</span><span class="n">logging</span><span class="o">=</span><span class="s1">&#39;verbose&#39;</span><span class="p">)</span>
+  <div class="section" id="starting-off">
+<h1>Starting Off<a class="headerlink" href="#starting-off" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="what-is-a-hive">
+<h2>What is a Hive<a class="headerlink" href="#what-is-a-hive" title="Permalink to this headline">¶</a></h2>
+<p>A hivemind project, colloquially known as a “hive”, is an organizational structure for all components of the hivemind universe. With a number of benefits over one-off files, the hive provides benefits for development and production environments alike. All while keeping the handcuffs off for when programmers want to do the awesome hackery that Python is known for.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Think of a city. A bustling of people and information. When walking through the streets, you don’t care about what most people or things are doing. You observe and relay information to people who are listening all while potentially listening in on others when the time is right.</p>
+</div>
+<p>If you’re familiar with the <a class="reference external" href="https://www.djangoproject.com/">Django</a> project, this should feel very familiar as many of the concepts were modeled after it’s project structure.</p>
+</div>
+<div class="section" id="hm-command">
+<h2><code class="docutils literal notranslate"><span class="pre">hm</span></code> Command<a class="headerlink" href="#hm-command" title="Permalink to this headline">¶</a></h2>
+<p>The CLI interface for hivemind. This comes with utilities to help initialize the project, new nodes, and even run in development and production environments. Below is the current help info of the <code class="docutils literal notranslate"><span class="pre">hm</span></code> command</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>usage: hm [-h] {new,create_node,dev} ...
+
+Hivemind utility belt with quick access tools for running task nodes, starting
+new projects, and more.
+
+positional arguments:
+  {new,create_node,dev}
+                        Commands that can be run
+
+optional arguments:
+  -h, --help            show this help message and exit
 </pre></div>
 </div>
-<p>That’s all we need to boot our brain. We can start that now.</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>~$&gt; python root.py
-<span class="o">[</span><span class="m">18</span>/08/2019 <span class="m">11</span>:49:13 PM - INFO <span class="o">]</span>: Serving on <span class="m">9476</span>...
+</div>
+<div class="section" id="create-a-project">
+<h2>Create a Project<a class="headerlink" href="#create-a-project" title="Permalink to this headline">¶</a></h2>
+<p>Let’s go to wherever we normally keep our code repositories and make a new directory. To follow with our “hive as a city” concept, we’ll call it <code class="docutils literal notranslate"><span class="pre">gotham</span></code>.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>~$&gt; <span class="nb">cd</span> ~/repos
+~$&gt; mkdir gotham
+~$&gt; <span class="nb">cd</span> gotham
 </pre></div>
 </div>
+<p>Once inside, we use the <code class="docutils literal notranslate"><span class="pre">hm</span> <span class="pre">new</span></code> command to set up a fresh hive.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>usage: hm new [-h] [-v] [--dir DIR] name
+
+Set up a new hive!
+
+positional arguments:
+  name           The name of the new project
+
+optional arguments:
+  -h, --help     show this help message and exit
+  -v, --verbose  Provide additional feedback
+  --dir DIR      The directory to place it in (cwd by default)
+</pre></div>
+</div>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>~$&gt; hm new gotham
+New hive at: /home/jdoe/repos/gotham
+</pre></div>
+</div>
+<p>If you look around there, you’ll see something akin to the following structure.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>gotham/
+    `- gotham/
+        `- config/
+            `- __init__.py
+            `- hive.py
+        `- nodes/
+            `- __init__.py
+        `- root/
+            `- __init__.py
+        `- static/
+        `- templates/
+        `- __init__.py
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">config/hive.py</span></code>: The settings file for a given hive</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">nodes/</span></code>: Where our nodes will go. More on this soon.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">root/__init__.py</span></code>: The controller class goes here. The controller(s) is/are the heart of the hive. By default, it’s just a transparent wrapper around the <code class="docutils literal notranslate"><span class="pre">RootController</span></code> class.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">static/</span></code>: For web-side utilities, static files that we’ll serve out</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">templates/</span></code>: <code class="docutils literal notranslate"><span class="pre">TaskYaml</span></code> templates for plugin-style task fun! We’ll get more into this later on too.</p></li>
+</ul>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>While not specifically required, the additional top level directory is to contain all the python parts to one location to avoid crowding the root or your new repo.</p>
+</div>
+<p>With just that one command, we have a functional web server that can be navigated to.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>~$&gt; <span class="nb">cd</span> gotham
+~$&gt; hm dev
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">dev</span></code> command should boot up your hive and start listening.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>While this will be described better in the logging documentation, you should be able to find the output log of your hive wherever you’re <code class="docutils literal notranslate"><span class="pre">config/hive.py</span> <span class="pre">-&gt;</span> <span class="pre">LOG_LOCATION</span></code> is set.</p>
+</div>
+<p>Now, simply navigate to <code class="docutils literal notranslate"><span class="pre">http://127.0.0.1:9476</span></code> and you should be greeted with a simple (but noteworthy!) page.</p>
+<div class="section" id="a-quick-recap">
+<h3>A Quick Recap<a class="headerlink" href="#a-quick-recap" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">hm</span> <span class="pre">new</span></code> command created a “blank” hive with some defaults.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">hm</span> <span class="pre">dev</span></code> command starts the hive environment</p></li>
+<li><p>A basic web server is run and we were able to see the page!</p></li>
+</ul>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>If you’re getting import errors, odds are python can’t find <code class="docutils literal notranslate"><span class="pre">hivemind</span></code> on your PYTHONPATH.</p>
+<p>The web server you’re seeing is actually your hive’s <code class="docutils literal notranslate"><span class="pre">RootController</span></code> listening and responding to changes in your network. We’ll describe this in greater detail later. This is a vital piece of the puzzle so remember the name!</p>
 </div>
 </div>
-<div class="section" id="service-node">
-<h2>Service Node<a class="headerlink" href="#service-node" title="Permalink to this headline">¶</a></h2>
-<p>With our root up and running, let’s build a service to ship some data every few seconds. We do this by sub classing the abstract <code class="docutils literal notranslate"><span class="pre">_Node</span></code>. In a new python file <code class="docutils literal notranslate"><span class="pre">test_service.py</span></code>, we set up the following:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">hivemind</span> <span class="kn">import</span> <span class="n">_Node</span>
+</div>
+<div class="section" id="create-a-node">
+<h2>Create a Node<a class="headerlink" href="#create-a-node" title="Permalink to this headline">¶</a></h2>
+<p>Okay, we have a network. Time to put some nodes on it! Enter the <code class="docutils literal notranslate"><span class="pre">hm</span> <span class="pre">create_node</span></code> command.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>usage: hm create_node [-h] [-v] name
 
-<span class="k">class</span> <span class="nc">MyPingService</span><span class="p">(</span><span class="n">_Node</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot; Message ship every N seconds &quot;&quot;&quot;</span>
+Generate a new node within a hive
 
-    <span class="k">def</span> <span class="nf">services</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+positional arguments:
+  name           The name of this node
+
+optional arguments:
+  -h, --help     show this help message and exit
+  -v, --verbose  Provide additional feedback
+</pre></div>
+</div>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>~$&gt; hm create_node BatSignal
+</pre></div>
+</div>
+<p>Once run, you should see the following in your hive.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>nodes/
+    `- __init__.py
+    `- batsignal
+        `- __init__.py
+        `- batsignal.py
+</pre></div>
+</div>
+<p>And <code class="docutils literal notranslate"><span class="pre">batsignal.py</span></code> should look something like:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">BatSignal node for gotham</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">hivemind</span> <span class="kn">import</span> <span class="n">_Node</span>
+
+
+<span class="k">class</span> <span class="nc">BatSignal</span><span class="p">(</span><span class="n">_Node</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    BatSignal Implementation</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">services</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Overloaded from _Node to include any initial services that</span>
-<span class="sd">        we boot our node with. Services can be turned on and off at</span>
-<span class="sd">        any time via self.add_service() and self.remove_service()</span>
+<span class="sd">        Register any default services</span>
+<span class="sd">        :return: None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_ping_service</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_service</span><span class="p">(</span>
-            <span class="n">name</span><span class="o">=</span><span class="s1">&#39;ping-central&#39;</span><span class="p">,</span>
-            <span class="n">function</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_ping_serivce_function</span>
+        <span class="k">return</span>
+
+
+    <span class="k">def</span> <span class="nf">subscriptions</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Register any default subscriptions</span>
+<span class="sd">        :return: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span> <span class="c1"># pragma: no cover</span>
+    <span class="c1"># An initialization command.</span>
+    <span class="n">BatSignal</span><span class="o">.</span><span class="n">exec_</span><span class="p">(</span>
+        <span class="n">name</span><span class="o">=</span><span class="s2">&quot;mynode&quot;</span><span class="p">,</span>
+        <span class="n">logging</span><span class="o">=</span><span class="s1">&#39;verbose&#39;</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+<p>That’s a self contained node that can be run but, at the moment, it doesn’t do anything.</p>
+<div class="section" id="enable-the-node">
+<h3>Enable The Node<a class="headerlink" href="#enable-the-node" title="Permalink to this headline">¶</a></h3>
+<p>If we run <code class="docutils literal notranslate"><span class="pre">hm</span> <span class="pre">dev</span></code> right now, nothing will have changed. We need to tell the hive to load the <code class="docutils literal notranslate"><span class="pre">BatSignal</span></code> by default.</p>
+<p>In the <code class="docutils literal notranslate"><span class="pre">nodes/__init__.py</span></code> file you should see the following:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># from .batsignal import batsignal</span>
+</pre></div>
+</div>
+<p>Simply uncommenting that grants access to the components powering your hive. This is a pretty brute force way to (dis|en)able nodes.</p>
+</div>
+<div class="section" id="add-a-service">
+<h3>Add a Service<a class="headerlink" href="#add-a-service" title="Permalink to this headline">¶</a></h3>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p><strong>What is a Service?</strong></p>
+<p>A service is how we communicate observed data to our network. A service executes on it’s own thread and, philosophically, relies on nothing but itself. This doesn’t mean it shouldn’t interact with other data but, at all costs, we avoid synchronous waiting patterns.</p>
+</div>
+<p>With the node enabled, running <code class="docutils literal notranslate"><span class="pre">hm</span> <span class="pre">dev</span></code> will start up the controller and our node, but until we add services or subscriptions, our node doesn’t serve any purpose. To get the Dark Knight to save us, we’ll need to send him a message whenever a crisis occurs. A perfect situation for a service.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">BatSignal</span><span class="p">(</span><span class="n">_Node</span><span class="p">):</span>
+    <span class="c1"># ...</span>
+
+    <span class="k">def</span> <span class="nf">services</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add the bat signal service!</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_bat_signal_service</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_service</span><span class="p">(</span>
+            <span class="n">name</span><span class="o">=</span><span class="s1">&#39;bat-signal-main&#39;</span><span class="p">,</span>
+            <span class="n">function</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_bat_signal</span>
         <span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">_ping_serivce_function</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        This function is called on a loop until the service</span>
-<span class="sd">        is terminated. A simple service like this doesn&#39;t need</span>
-<span class="sd">        to know when we terminate as the _Node and _Service will</span>
-<span class="sd">        take care of that for us.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_ping_service</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="s1">&#39;a test message&#39;</span><span class="p">)</span>
 
-        <span class="c1"># This is the best way to sleep a service as it can auto</span>
-        <span class="c1"># return if the service is aborted or the node shut down</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_ping_service</span><span class="o">.</span><span class="n">sleep_for</span><span class="p">(</span><span class="mf">5.0</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">_bat_signal</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">service</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Run the service! By default, this is run on a</span>
+<span class="sd">        loop forever!</span>
+<span class="sd">        :param service: The service instance we created above</span>
+<span class="sd">        :return: int (0 means continue, otherwise abort)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># Send a signal to the big man himself. (JSON compliant payload)</span>
+        <span class="n">service</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="s1">&#39;Batman! We need help!&#39;</span><span class="p">)</span>
+
+        <span class="c1"># As lowly cityfolk, we can do nothing but wait until</span>
+        <span class="c1"># the next crisis.</span>
+        <span class="n">service</span><span class="o">.</span><span class="n">sleep_for</span><span class="p">(</span><span class="mf">5.0</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="mi">0</span>
-
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
-    <span class="n">MyPingService</span><span class="o">.</span><span class="n">exec_</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;ping_service&#39;</span><span class="p">,</span> <span class="n">logging</span><span class="o">=</span><span class="s1">&#39;verbose&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>There’s some really nice hints in there for what each item does. We overload <code class="docutils literal notranslate"><span class="pre">services</span></code> to build our initial service and then send a message to the controller whenever it’s required.</p>
-<p>We start the node just like our root.</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>~$&gt; python test_service.py
+<p>A few important things in there.</p>
+<ol class="arabic simple">
+<li><dl class="simple">
+<dt>We defined our first <code class="docutils literal notranslate"><span class="pre">_Service</span></code> with the <code class="docutils literal notranslate"><span class="pre">self.add_service</span></code> function.</dt><dd><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">name</span></code>: A name for our service (unique to the node class)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">function</span></code>: The callback that gets run in a loop for the rest of the _Node’s life</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p>Within the callback function, we sent a message through our service to alert anyone that’s listening</p></li>
+<li><dl class="simple">
+<dt>To avoid spamming the controller and subsequent subscriptions to this service, we have the service sleep</dt><dd><ul class="simple">
+<li><p>We do this with <code class="docutils literal notranslate"><span class="pre">service.sleep_for</span></code> as it has the ability to wake up gracefully when shutting down</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ol>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Avoid <code class="docutils literal notranslate"><span class="pre">time.sleep</span></code> in a service callback! There’s no benefit over <code class="docutils literal notranslate"><span class="pre">_Serivce.sleep_for</span></code> and can
+cause your program to stall out for a length of time.</p>
+</div>
+</div>
+<div class="section" id="logs">
+<h3>Logs<a class="headerlink" href="#logs" title="Permalink to this headline">¶</a></h3>
+<p>With the service looking good, we can start our development environment with <code class="docutils literal notranslate"><span class="pre">hm</span> <span class="pre">dev</span></code>. At the moment, nothing new will appear to happen. Our service should be transmitting a signal every 5 seconds, but we don’t have anything to really look at. To see what’s happening at a log level, navigate to where your <code class="docutils literal notranslate"><span class="pre">config/hive.py</span> <span class="pre">-&gt;</span> <span class="pre">LOG_LOCATION</span></code> points you. (This will be different on different platforms).</p>
+<p>You should see two logs. One called <code class="docutils literal notranslate"><span class="pre">root.log</span></code> and another called <code class="docutils literal notranslate"><span class="pre">batsignal.log</span></code> (or whatever you called the node class). The logging utilities within hivemind route to the corresponding log file to keep them from all becoming one giant mess. In the future <code class="docutils literal notranslate"><span class="pre">hm</span></code> may gain the ability to merge the log based on the timestamps to help improve with time debugging.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p><strong>Verbose</strong> To enable verbose output of the nodes, use the <code class="docutils literal notranslate"><span class="pre">-v</span></code> flag. This will be reflected in the logs, not on the standard output</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>~$&gt; hm dev -v
 </pre></div>
 </div>
-<p>You should see it log a few items including the registration of the node and the service. Within the <code class="docutils literal notranslate"><span class="pre">root.py</span></code> terminal, you should see it interacting with the node and receiving a payload every 5 seconds.</p>
 </div>
-<div class="section" id="subscription-node">
-<h2>Subscription Node<a class="headerlink" href="#subscription-node" title="Permalink to this headline">¶</a></h2>
-<p>Now that we have a controller to manage data and a service to produce data, let’s utilize a consumer to work with the data. In <code class="docutils literal notranslate"><span class="pre">test_subscription.py</span></code> let’s create the following:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyPingSubscription</span><span class="p">(</span><span class="n">_Node</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot; Subscription to the ping service &quot;&quot;&quot;</span>
+</div>
+<div class="section" id="add-a-subscription">
+<h3>Add a Subscription<a class="headerlink" href="#add-a-subscription" title="Permalink to this headline">¶</a></h3>
+<p>The Batman is always vigilant to save the day. A subscription, is no different.</p>
+<p>Now, we could add a subscription to our <code class="docutils literal notranslate"><span class="pre">BatSignal</span></code> node that listens for the <code class="docutils literal notranslate"><span class="pre">&quot;bat-signal-main&quot;</span></code> command and responds to the crisis however we can scale the number of Bat Signals and Bat…men(?) to any extent if we separate them. Herein lies one of the cornerstones of <code class="docutils literal notranslate"><span class="pre">hivemind</span></code>.</p>
+<p>First, let’s create the node to host our subscription.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>~$&gt; hm create_node batman
+</pre></div>
+</div>
+<p>Now, we should have the following:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>nodes/
+    `- __init__.py
+    `- batman/
+        `- __init__.py
+        `- batman.py
+    `- batsignal/
+        ` - ...
+</pre></div>
+</div>
+<p>Within the node definition (<code class="docutils literal notranslate"><span class="pre">nodes/batman/batman.py</span></code>) we can set up the subscription.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Batman</span><span class="p">(</span><span class="n">_Node</span><span class="p">):</span>
+    <span class="c1"># ...</span>
 
-    <span class="k">def</span> <span class="nf">subscriptions</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">subscriptions</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Overloaded from _Node to register any subscriptions. Just</span>
-<span class="sd">        like services, we can add and remove at whim.</span>
+<span class="sd">        Stay vigilant caped crusader</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_my_subscription</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_subscription</span><span class="p">(</span>
-            <span class="s1">&#39;ping-central&#39;</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_receive_message</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_bat_signal_subscription</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_subscription</span><span class="p">(</span>
+            <span class="n">name</span><span class="o">=</span><span class="s1">&#39;bat-signal-*&#39;</span><span class="p">,</span>
+            <span class="n">function</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_go_save_the_day</span>
         <span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">_receive_message</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">payload</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">_go_save_the_day</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">payload</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        This is an endpoint that gets fired when our controller</span>
-<span class="sd">        forwards payloads.</span>
+<span class="sd">        Here, we can save the day.</span>
+
+<span class="sd">        :param payload: The message data sent from a service who&#39;s name matches</span>
+<span class="sd">                        the subscription name pattern. In this case, anything</span>
+<span class="sd">                        matching &quot;bat-signal-*&quot;</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">payload</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
-            <span class="k">return</span>
-        <span class="k">print</span> <span class="p">(</span><span class="n">payload</span><span class="o">.</span><span class="n">upper</span><span class="p">())</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">log_warning</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;Unknown payload type: {type(payload)}&#39;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="mi">0</span>
 
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
-    <span class="n">MyPingSubscription</span><span class="o">.</span><span class="n">exec_</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;ping_sub&#39;</span><span class="p">,</span> <span class="n">logging</span><span class="o">=</span><span class="s1">&#39;verbose&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">payload</span> <span class="o">==</span> <span class="s2">&quot;Batman! We need help!&quot;</span><span class="p">:</span>
+            <span class="k">print</span> <span class="p">(</span><span class="s1">&#39;Batman has saved the day!&#39;</span><span class="p">)</span> <span class="c1"># To print to our stdout</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">print</span> <span class="p">(</span><span class="s1">&#39;Oh no! Batman doesn</span><span class="se">\&#39;</span><span class="s1">t know what to do!&#39;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="mi">0</span>
 </pre></div>
 </div>
-<p>Once done, we are ready to fire up this node and complete the cycle.</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>~$&gt; python test_subscription.py
-</pre></div>
 </div>
-<p>If all goes well you should see the subscription printing out <code class="docutils literal notranslate"><span class="pre">&quot;A</span> <span class="pre">TEST</span> <span class="pre">MESSAGE&quot;</span></code> every 5 seconds.</p>
-</div>
-<div class="section" id="simplicity">
-<h2>Simplicity<a class="headerlink" href="#simplicity" title="Permalink to this headline">¶</a></h2>
-<p>Just like that, using less than 30 lines of actual code, we are able to create a stable, stateless network that can interpret and process data without needing to know anything about one another.</p>
-<p>Another benefit is you can take down either of the nodes and stand them back up without any real repercussions. Taking down the service just means the subscription won’t receive data but it’s no bother to it. The Root controller will register/de-register nodes as they come and go for development and maintenance purposes.</p>
 </div>
 </div>
 

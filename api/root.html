@@ -1,0 +1,302 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Controller &mdash; hivemind  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Code Standards" href="../developers/codestandards.html" />
+    <link rel="prev" title="Primitives" href="../basics/model.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> hivemind
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Quick Start</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../basics/install.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart/root.html">Starting Off</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Features</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../basics/words.html">Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../basics/model.html">Primitives</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Controller</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Contributing</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../developers/codestandards.html">Code Standards</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">hivemind</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Controller</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/api/root.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="controller">
+<h1>Controller<a class="headerlink" href="#controller" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="hivemind.RootController">
+<em class="property">class </em><code class="sig-prename descclassname">hivemind.</code><code class="sig-name descname">RootController</code><span class="sig-paren">(</span><em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/hivemind/core/root.html#RootController"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hivemind.RootController" title="Permalink to this definition">¶</a></dt>
+<dd><p>Basic impl of subscription service handler</p>
+<dl class="method">
+<dt id="hivemind.RootController.deregister_node">
+<em class="property">classmethod </em><code class="sig-name descname">deregister_node</code><span class="sig-paren">(</span><em class="sig-param">node</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/hivemind/core/root.html#RootController.deregister_node"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hivemind.RootController.deregister_node" title="Permalink to this definition">¶</a></dt>
+<dd><p>Dismantel a node</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="hivemind.RootController.enable_node">
+<em class="property">classmethod </em><code class="sig-name descname">enable_node</code><span class="sig-paren">(</span><em class="sig-param">node</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/hivemind/core/root.html#RootController.enable_node"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hivemind.RootController.enable_node" title="Permalink to this definition">¶</a></dt>
+<dd><p>Enable the node</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="hivemind.RootController.exec_">
+<em class="property">classmethod </em><code class="sig-name descname">exec_</code><span class="sig-paren">(</span><em class="sig-param">logging=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/hivemind/core/root.html#RootController.exec_"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hivemind.RootController.exec_" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generic call used by most entry scripts to start the root without
+having to create a custom local instance</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="hivemind.RootController.register_node">
+<em class="property">classmethod </em><code class="sig-name descname">register_node</code><span class="sig-paren">(</span><em class="sig-param">node</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/hivemind/core/root.html#RootController.register_node"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hivemind.RootController.register_node" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add the node to our root (if not already there). If it is,
+we simply ignore the request.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="hivemind.RootController.register_service">
+<em class="property">classmethod </em><code class="sig-name descname">register_service</code><span class="sig-paren">(</span><em class="sig-param">service</em><span class="sig-paren">)</span> &#x2192; dict<a class="reference internal" href="../_modules/hivemind/core/root.html#RootController.register_service"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hivemind.RootController.register_service" title="Permalink to this definition">¶</a></dt>
+<dd><p>Register a service. This is called from a _Node</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>service</strong> – The _Service instance that contains
+the required info.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="hivemind.RootController.register_subscription">
+<em class="property">classmethod </em><code class="sig-name descname">register_subscription</code><span class="sig-paren">(</span><em class="sig-param">subscription</em><span class="sig-paren">)</span> &#x2192; dict<a class="reference internal" href="../_modules/hivemind/core/root.html#RootController.register_subscription"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hivemind.RootController.register_subscription" title="Permalink to this definition">¶</a></dt>
+<dd><p>Register a subscription. This is called from a _Node</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>subscription</strong> – The _Subscription instance that contains
+the required info.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="hivemind.RootController.run">
+<code class="sig-name descname">run</code><span class="sig-paren">(</span><em class="sig-param">loop=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/hivemind/core/root.html#RootController.run"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hivemind.RootController.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Our run operation is built to handle the various incoming
+requests and respond to the required items in time.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="hivemind.RootController.send_to_controller">
+<em class="property">classmethod </em><code class="sig-name descname">send_to_controller</code><span class="sig-paren">(</span><em class="sig-param">service</em>, <em class="sig-param">payload</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/hivemind/core/root.html#RootController.send_to_controller"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hivemind.RootController.send_to_controller" title="Permalink to this definition">¶</a></dt>
+<dd><p>Utility for shipping messages to our controller which
+will then route to the various subscribers (alternate
+thread)</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../developers/codestandards.html" class="btn btn-neutral float-right" title="Code Standards" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../basics/model.html" class="btn btn-neutral" title="Primitives" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Michael McCartney
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,1004 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>hivemind.core.root &mdash; hivemind  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> hivemind
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Quick Start</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../basics/install.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart/root.html">Starting Off</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Features</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../basics/words.html">Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../basics/model.html">Primitives</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/root.html">Controller</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Contributing</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../developers/codestandards.html">Code Standards</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">hivemind</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>hivemind.core.root</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for hivemind.core.root</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Copyright (c) 2019 Michael McCartney, Kevin McLoughlin</span>
+
+<span class="sd">Permission is hereby granted, free of charge, to any person obtaining a copy</span>
+<span class="sd">of this software and associated documentation files (the &quot;Software&quot;), to deal</span>
+<span class="sd">in the Software without restriction, including without limitation the rights</span>
+<span class="sd">to use, copy, modify, merge, publish, distribute, sublicense, and/or sell</span>
+<span class="sd">copies of the Software, and to permit persons to whom the Software is</span>
+<span class="sd">furnished to do so, subject to the following conditions:</span>
+
+<span class="sd">The above copyright notice and this permission notice shall be included in all</span>
+<span class="sd">copies or substantial portions of the Software.</span>
+
+<span class="sd">THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR</span>
+<span class="sd">IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,</span>
+<span class="sd">FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE</span>
+<span class="sd">AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER</span>
+<span class="sd">LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,</span>
+<span class="sd">OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE</span>
+<span class="sd">SOFTWARE.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">queue</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">fnmatch</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">functools</span>
+<span class="kn">import</span> <span class="nn">threading</span>
+
+
+<span class="c1"># -- For Queue Prio</span>
+<span class="kn">from</span> <span class="nn">dataclasses</span> <span class="k">import</span> <span class="n">dataclass</span><span class="p">,</span> <span class="n">field</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="k">import</span> <span class="n">Any</span>
+
+<span class="kn">import</span> <span class="nn">asyncio</span>
+<span class="kn">from</span> <span class="nn">aiohttp</span> <span class="k">import</span> <span class="n">web</span>
+<span class="kn">import</span> <span class="nn">jinja2</span>
+<span class="kn">import</span> <span class="nn">aiohttp_jinja2</span>
+
+<span class="kn">from</span> <span class="nn">.</span> <span class="k">import</span> <span class="n">log</span>
+<span class="kn">from</span> <span class="nn">.base</span> <span class="k">import</span> <span class="n">_HivemindAbstractObject</span><span class="p">,</span> <span class="n">_HandlerBase</span>
+<span class="kn">from</span> <span class="nn">hivemind.util</span> <span class="k">import</span> <span class="n">global_settings</span>
+
+<span class="kn">from</span> <span class="nn">hivemind.data.abstract.scafold</span> <span class="k">import</span> <span class="n">_DatabaseIntegration</span>
+
+<span class="c1"># -- Bsaeic tables required by the system</span>
+<span class="kn">from</span> <span class="nn">hivemind.data.tables</span> <span class="k">import</span> <span class="n">TableDefinition</span><span class="p">,</span> <span class="n">RequiredTables</span><span class="p">,</span> <span class="n">NodeRegister</span>
+
+<span class="c1"># -- Populate known database mappings</span>
+<span class="kn">from</span> <span class="nn">hivemind.data.contrib</span> <span class="k">import</span> <span class="n">interfaces</span>
+
+
+<span class="k">class</span> <span class="nc">RootServiceHandler</span><span class="p">(</span><span class="n">_HandlerBase</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Web handler for the services in order to route the</span>
+<span class="sd">    data through properly.</span>
+
+<span class="sd">    # TODO: Move this away from here</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">register_node</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Register a _Node &quot;&quot;&quot;</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="k">await</span> <span class="n">request</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+        <span class="n">port</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">controller</span><span class="o">.</span><span class="n">_register_node</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">web</span><span class="o">.</span><span class="n">json_response</span><span class="p">({</span> <span class="s1">&#39;result&#39;</span> <span class="p">:</span> <span class="n">port</span> <span class="p">})</span>
+
+
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">register_service</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Register a _Service &quot;&quot;&quot;</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="k">await</span> <span class="n">request</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">controller</span><span class="o">.</span><span class="n">_register_service</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">web</span><span class="o">.</span><span class="n">json_response</span><span class="p">({</span> <span class="s1">&#39;result&#39;</span> <span class="p">:</span> <span class="kc">True</span> <span class="p">})</span>
+
+
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">register_subscription</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Register a _Subscription &quot;&quot;&quot;</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="k">await</span> <span class="n">request</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">controller</span><span class="o">.</span><span class="n">_register_subscription</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">web</span><span class="o">.</span><span class="n">json_response</span><span class="p">({</span> <span class="s1">&#39;result&#39;</span> <span class="p">:</span> <span class="kc">True</span> <span class="p">})</span>
+
+
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">register_task</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Register a _Task &quot;&quot;&quot;</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="k">await</span> <span class="n">request</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+        <span class="n">task_connect</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">controller</span><span class="o">.</span><span class="n">_register_task</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">web</span><span class="o">.</span><span class="n">json_response</span><span class="p">(</span><span class="n">task_connect</span><span class="p">)</span>
+
+
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">heartbeat</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Basic alive test &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">web</span><span class="o">.</span><span class="n">json_response</span><span class="p">({</span><span class="s1">&#39;result&#39;</span> <span class="p">:</span> <span class="kc">True</span><span class="p">})</span>
+
+
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">service_dispatch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Dispatch service command &quot;&quot;&quot;</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">match_info</span><span class="p">[</span><span class="s1">&#39;tail&#39;</span><span class="p">]</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="k">await</span> <span class="n">request</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+        <span class="n">passback</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">controller</span><span class="o">.</span><span class="n">_delegate</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">web</span><span class="o">.</span><span class="n">json_response</span><span class="p">(</span><span class="n">passback</span><span class="p">)</span>
+
+
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">task_data_dispatch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
+        <span class="c1"># TODO</span>
+        <span class="k">pass</span>
+
+
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">index_post</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
+        <span class="c1"># FIXME: Why do we need this?</span>
+        <span class="k">return</span> <span class="n">web</span><span class="o">.</span><span class="n">json_response</span><span class="p">({</span><span class="s1">&#39;result&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">})</span>
+
+
+    <span class="nd">@aiohttp_jinja2</span><span class="o">.</span><span class="n">template</span><span class="p">(</span><span class="s2">&quot;hive_index.html&quot;</span><span class="p">)</span>
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">controller</span><span class="o">.</span><span class="n">base_context</span><span class="p">()</span>
+
+
+<span class="nd">@dataclass</span><span class="p">(</span><span class="n">order</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">PrioritizedDispatch</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Item used to identify the prio of arbitrary payload</span>
+<span class="sd">    data from our services. Ripped from py docs.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">priority</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">name</span><span class="p">:</span> <span class="n">Any</span><span class="o">=</span><span class="n">field</span><span class="p">(</span><span class="n">compare</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">node</span><span class="p">:</span> <span class="n">Any</span><span class="o">=</span><span class="n">field</span><span class="p">(</span><span class="n">compare</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">payload</span><span class="p">:</span> <span class="n">Any</span><span class="o">=</span><span class="n">field</span><span class="p">(</span><span class="n">compare</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="RootController"><a class="viewcode-back" href="../../../api/root.html#hivemind.RootController">[docs]</a><span class="k">class</span> <span class="nc">RootController</span><span class="p">(</span><span class="n">_HivemindAbstractObject</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Basic impl of subscription service handler</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1">#</span>
+    <span class="c1"># The node states that determine how we handle them.</span>
+    <span class="c1">#</span>
+    <span class="n">NODE_PENDING</span> <span class="o">=</span> <span class="s1">&#39;pending&#39;</span>
+    <span class="n">NODE_ONLINE</span>  <span class="o">=</span> <span class="s1">&#39;online&#39;</span>
+    <span class="n">NODE_TERM</span>    <span class="o">=</span> <span class="s1">&#39;terminate&#39;</span>
+
+    <span class="k">class</span> <span class="nc">SubscriptionInfo</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Subscription data held by the RootController</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">endpoint</span><span class="p">,</span> <span class="n">port</span><span class="p">,</span> <span class="n">proxy</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_endpoint</span> <span class="o">=</span> <span class="n">endpoint</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_port</span> <span class="o">=</span> <span class="n">port</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_proxy</span> <span class="o">=</span> <span class="n">proxy</span>
+
+        <span class="nd">@property</span>
+        <span class="k">def</span> <span class="nf">port</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_port</span>
+
+
+        <span class="nd">@property</span>
+        <span class="k">def</span> <span class="nf">endpoint</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_endpoint</span>
+
+
+        <span class="nd">@property</span>
+        <span class="k">def</span> <span class="nf">proxy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_proxy</span>
+        
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">_HivemindAbstractObject</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">logger</span><span class="o">=</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;logger&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_settings</span> <span class="o">=</span> <span class="n">kwargs</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_port_count</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="c1"># Known nodes out in the ecosystem</span>
+        <span class="c1"># self._nodes = set()</span>
+
+        <span class="c1"># Known services actively running</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_services</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="c1"># Requested subscriptions</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_subscriptions</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="c1"># Registered tasks</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_tasks</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="c1"># How we know to shut down our dispatch threads</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_abort</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="c1">#</span>
+        <span class="c1"># To avoid bogging down slow processing subscriptions,</span>
+        <span class="c1"># we use a set of response threads to make sure things</span>
+        <span class="c1"># stay nice and light as well as handle instances of</span>
+        <span class="c1"># bugged nodes without halting the rest of the execution</span>
+        <span class="c1"># state.</span>
+        <span class="c1">#</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_response_threads</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_response_lock</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">RLock</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_response_condition</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Condition</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_response_lock</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_response_queue</span> <span class="o">=</span> <span class="n">queue</span><span class="o">.</span><span class="n">PriorityQueue</span><span class="p">()</span>
+
+        <span class="c1">#</span>
+        <span class="c1"># Startup utilities</span>
+        <span class="c1">#</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_startup_condition</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;startup_condition&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+
+        <span class="c1"># We don&#39;t start the database until we&#39;re within the run() command</span>
+        <span class="c1"># to make sure all database interactions with this object happen</span>
+        <span class="c1"># on the same node.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_database</span> <span class="o">=</span> <span class="kc">None</span>
+
+
+<div class="viewcode-block" id="RootController.send_to_controller"><a class="viewcode-back" href="../../../api/root.html#hivemind.RootController.send_to_controller">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">send_to_controller</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">service</span><span class="p">,</span> <span class="n">payload</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Utility for shipping messages to our controller which</span>
+<span class="sd">        will then route to the various subscribers (alternate</span>
+<span class="sd">        thread)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">json_data</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;service&#39;</span> <span class="p">:</span> <span class="n">service</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+            <span class="s1">&#39;node&#39;</span> <span class="p">:</span> <span class="n">service</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+            <span class="s1">&#39;payload&#39;</span> <span class="p">:</span> <span class="n">payload</span><span class="p">,</span>
+            <span class="s1">&#39;priority&#39;</span> <span class="p">:</span> <span class="mi">1</span> <span class="c1"># TODO</span>
+        <span class="p">}</span>
+
+        <span class="n">default_port</span> <span class="o">=</span> <span class="n">global_settings</span><span class="p">[</span><span class="s1">&#39;default_port&#39;</span><span class="p">]</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span>
+            <span class="n">f</span><span class="s1">&#39;http://127.0.0.1:</span><span class="si">{default_port}</span><span class="s1">/service/</span><span class="si">{service.name}</span><span class="s1">&#39;</span><span class="p">,</span>
+            <span class="n">json</span><span class="o">=</span><span class="n">json_data</span>
+        <span class="p">)</span>
+        <span class="n">result</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
+        <span class="k">return</span> <span class="mi">0</span> <span class="c1"># We&#39;ll need some kind of passback</span></div>
+
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">_register_post</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">type_</span><span class="p">,</span> <span class="n">json_data</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Utility for running a POST at the controller service</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">default_port</span> <span class="o">=</span> <span class="n">global_settings</span><span class="p">[</span><span class="s1">&#39;default_port&#39;</span><span class="p">]</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span>
+            <span class="n">f</span><span class="s1">&#39;http://127.0.0.1:</span><span class="si">{default_port}</span><span class="s1">/register/</span><span class="si">{type_}</span><span class="s1">&#39;</span><span class="p">,</span>
+            <span class="n">json</span><span class="o">=</span><span class="n">json_data</span>
+        <span class="p">)</span>
+        <span class="n">result</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">result</span><span class="o">.</span><span class="n">json</span><span class="p">()</span> <span class="c1"># Should be the port</span>
+
+    <span class="c1"># -- Registration Methods (Called from the _Node classes)</span>
+
+<div class="viewcode-block" id="RootController.register_node"><a class="viewcode-back" href="../../../api/root.html#hivemind.RootController.register_node">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">register_node</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">node</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add the node to our root (if not already there). If it is,</span>
+<span class="sd">        we simply ignore the request.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_register_post</span><span class="p">(</span><span class="s1">&#39;node&#39;</span><span class="p">,</span> <span class="p">{</span>
+            <span class="s1">&#39;name&#39;</span> <span class="p">:</span> <span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+            <span class="s1">&#39;status&#39;</span><span class="p">:</span> <span class="bp">cls</span><span class="o">.</span><span class="n">NODE_PENDING</span>
+        <span class="p">})</span></div>
+
+
+<div class="viewcode-block" id="RootController.deregister_node"><a class="viewcode-back" href="../../../api/root.html#hivemind.RootController.deregister_node">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">deregister_node</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">node</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Dismantel a node</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_register_post</span><span class="p">(</span><span class="s1">&#39;node&#39;</span><span class="p">,</span> <span class="p">{</span>
+            <span class="s1">&#39;name&#39;</span>  <span class="p">:</span> <span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+            <span class="s1">&#39;status&#39;</span><span class="p">:</span> <span class="bp">cls</span><span class="o">.</span><span class="n">NODE_TERM</span>
+        <span class="p">})</span></div>
+
+
+<div class="viewcode-block" id="RootController.enable_node"><a class="viewcode-back" href="../../../api/root.html#hivemind.RootController.enable_node">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">enable_node</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">node</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Enable the node</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_register_post</span><span class="p">(</span><span class="s1">&#39;node&#39;</span><span class="p">,</span> <span class="p">{</span>
+            <span class="s1">&#39;name&#39;</span> <span class="p">:</span> <span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+            <span class="s1">&#39;status&#39;</span><span class="p">:</span> <span class="bp">cls</span><span class="o">.</span><span class="n">NODE_ONLINE</span>
+        <span class="p">})</span></div>
+
+
+<div class="viewcode-block" id="RootController.register_service"><a class="viewcode-back" href="../../../api/root.html#hivemind.RootController.register_service">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">register_service</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">service</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Register a service. This is called from a _Node</span>
+
+<span class="sd">        :param service: The _Service instance that contains</span>
+<span class="sd">                        the required info.</span>
+<span class="sd">        :return: dict</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_register_post</span><span class="p">(</span><span class="s1">&#39;service&#39;</span><span class="p">,</span> <span class="p">{</span>
+            <span class="s1">&#39;node&#39;</span> <span class="p">:</span> <span class="n">service</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+            <span class="s1">&#39;name&#39;</span> <span class="p">:</span> <span class="n">service</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+        <span class="p">})</span></div>
+
+
+<div class="viewcode-block" id="RootController.register_subscription"><a class="viewcode-back" href="../../../api/root.html#hivemind.RootController.register_subscription">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">register_subscription</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">subscription</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Register a subscription. This is called from a _Node</span>
+
+<span class="sd">        :param subscription: The _Subscription instance that contains</span>
+<span class="sd">                             the required info.</span>
+<span class="sd">        :return: dict</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_register_post</span><span class="p">(</span><span class="s1">&#39;subscription&#39;</span><span class="p">,</span> <span class="p">{</span>
+            <span class="s1">&#39;node&#39;</span> <span class="p">:</span> <span class="n">subscription</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+            <span class="s1">&#39;filter&#39;</span> <span class="p">:</span> <span class="n">subscription</span><span class="o">.</span><span class="n">filter</span><span class="p">,</span>
+            <span class="s1">&#39;endpoint&#39;</span> <span class="p">:</span> <span class="n">subscription</span><span class="o">.</span><span class="n">endpoint</span><span class="p">,</span>
+            <span class="s1">&#39;port&#39;</span> <span class="p">:</span> <span class="n">subscription</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">port</span>
+        <span class="p">})</span></div>
+
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">register_task</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">task</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Register a task. This is call from a _Node (specifically a TaskNode)</span>
+
+<span class="sd">        :param task: _Task instance that we&#39;ll be using</span>
+<span class="sd">        :return dict:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_register_post</span><span class="p">(</span><span class="s1">&#39;task&#39;</span><span class="p">,</span> <span class="p">{</span>
+            <span class="s1">&#39;node&#39;</span> <span class="p">:</span> <span class="n">task</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+            <span class="s1">&#39;name&#39;</span> <span class="p">:</span> <span class="n">task</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+            <span class="s1">&#39;endpoint&#39;</span> <span class="p">:</span> <span class="n">task</span><span class="o">.</span><span class="n">endpoint</span><span class="p">,</span>
+            <span class="s1">&#39;port&#39;</span> <span class="p">:</span> <span class="n">task</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">port</span>
+        <span class="p">})</span>
+
+
+<div class="viewcode-block" id="RootController.exec_"><a class="viewcode-back" href="../../../api/root.html#hivemind.RootController.exec_">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">exec_</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">logging</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Generic call used by most entry scripts to start the root without</span>
+<span class="sd">        having to create a custom local instance</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">start</span><span class="p">(</span><span class="n">logging</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="n">controller</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">()</span>
+        <span class="n">controller</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">controller</span></div>
+
+    <span class="c1"># -- Virtual Interface</span>
+
+    <span class="k">def</span> <span class="nf">additional_routes</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Overload if required. Return a list of aiohttp routes that we</span>
+<span class="sd">        add to the web server for consumption. The main endpoints are</span>
+<span class="sd">        injected already so only user specific endpoints should live</span>
+<span class="sd">        here. The default implementation fills in the Task endpoint.</span>
+
+<span class="sd">        :return: list</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">from</span> <span class="nn">hivemind.util.tasknode</span> <span class="k">import</span> <span class="n">TaskNode</span>
+        <span class="n">endpoint</span> <span class="o">=</span> <span class="n">functools</span><span class="o">.</span><span class="n">partial</span><span class="p">(</span><span class="n">TaskNode</span><span class="o">.</span><span class="n">tasks_endpoint</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">[</span>
+            <span class="n">web</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;/tasks&#39;</span><span class="p">,</span> <span class="n">endpoint</span><span class="p">)</span>
+        <span class="p">]</span>
+
+    <span class="c1"># -- Overloaded</span>
+
+<div class="viewcode-block" id="RootController.run"><a class="viewcode-back" href="../../../api/root.html#hivemind.RootController.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">loop</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Our run operation is built to handle the various incoming</span>
+<span class="sd">        requests and respond to the required items in time.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_app</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">loop</span><span class="p">:</span>
+                <span class="n">loop</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">new_event_loop</span><span class="p">()</span>
+            <span class="n">asyncio</span><span class="o">.</span><span class="n">set_event_loop</span><span class="p">(</span><span class="n">loop</span><span class="p">)</span>
+
+            <span class="c1">#</span>
+            <span class="c1"># Data layer interface</span>
+            <span class="c1">#</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_init_database</span><span class="p">()</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">_handler_class</span> <span class="o">=</span> <span class="n">RootServiceHandler</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_handler_class</span><span class="o">.</span><span class="n">controller</span> <span class="o">=</span> <span class="bp">self</span> <span class="c1"># Reverse pointer</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">_app</span> <span class="o">=</span> <span class="n">web</span><span class="o">.</span><span class="n">Application</span><span class="p">(</span><span class="n">loop</span><span class="o">=</span><span class="n">loop</span><span class="p">)</span>
+
+            <span class="c1"># Setup the template engine</span>
+            <span class="n">aiohttp_jinja2</span><span class="o">.</span><span class="n">setup</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_app</span><span class="p">,</span>
+                <span class="n">loader</span><span class="o">=</span><span class="n">jinja2</span><span class="o">.</span><span class="n">FileSystemLoader</span><span class="p">(</span>
+                    <span class="n">global_settings</span><span class="p">[</span><span class="s1">&#39;hive_root&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;/static/templates&#39;</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">_app</span><span class="o">.</span><span class="n">add_routes</span><span class="p">([</span>
+                <span class="n">web</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s1">&#39;/register/node&#39;</span><span class="p">,</span>
+                         <span class="bp">self</span><span class="o">.</span><span class="n">_handler_class</span><span class="o">.</span><span class="n">register_node</span><span class="p">),</span>
+
+                <span class="n">web</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s1">&#39;/register/service&#39;</span><span class="p">,</span>
+                         <span class="bp">self</span><span class="o">.</span><span class="n">_handler_class</span><span class="o">.</span><span class="n">register_service</span><span class="p">),</span>
+
+                <span class="n">web</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s1">&#39;/register/subscription&#39;</span><span class="p">,</span>
+                         <span class="bp">self</span><span class="o">.</span><span class="n">_handler_class</span><span class="o">.</span><span class="n">register_subscription</span><span class="p">),</span>
+
+                <span class="n">web</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s1">&#39;/register/task&#39;</span><span class="p">,</span>
+                         <span class="bp">self</span><span class="o">.</span><span class="n">_handler_class</span><span class="o">.</span><span class="n">register_task</span><span class="p">),</span>
+
+                <span class="n">web</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;/heartbeat&#39;</span><span class="p">,</span>
+                         <span class="bp">self</span><span class="o">.</span><span class="n">_handler_class</span><span class="o">.</span><span class="n">heartbeat</span><span class="p">),</span>
+
+                <span class="n">web</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s1">&#39;/heartbeat&#39;</span><span class="p">,</span>
+                         <span class="bp">self</span><span class="o">.</span><span class="n">_handler_class</span><span class="o">.</span><span class="n">heartbeat</span><span class="p">),</span>
+
+                <span class="n">web</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s1">&#39;/service/{tail:.*}&#39;</span><span class="p">,</span>
+                         <span class="bp">self</span><span class="o">.</span><span class="n">_handler_class</span><span class="o">.</span><span class="n">service_dispatch</span><span class="p">),</span>
+
+                <span class="n">web</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">,</span>
+                         <span class="bp">self</span><span class="o">.</span><span class="n">_handler_class</span><span class="o">.</span><span class="n">index_post</span><span class="p">),</span>
+                <span class="n">web</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">,</span>
+                         <span class="bp">self</span><span class="o">.</span><span class="n">_handler_class</span><span class="o">.</span><span class="n">index</span><span class="p">),</span>
+
+                <span class="c1"># -- For development - need a &quot;collectstatic&quot; eq</span>
+                <span class="n">web</span><span class="o">.</span><span class="n">static</span><span class="p">(</span><span class="s1">&#39;/static&#39;</span><span class="p">,</span>
+                           <span class="n">global_settings</span><span class="p">[</span><span class="s1">&#39;static_dirs&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span>
+                           <span class="n">follow_symlinks</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="p">])</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">_app</span><span class="o">.</span><span class="n">add_routes</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">additional_routes</span><span class="p">())</span>
+
+            <span class="c1">#</span>
+            <span class="c1"># Before running our server, let&#39;s start our queue threads</span>
+            <span class="c1"># that deal with linking back to other services.</span>
+            <span class="c1">#</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_settings</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;response_threads&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">)):</span>
+                <span class="n">res_thread</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span>
+                    <span class="n">target</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_dispatch</span><span class="p">,</span>
+                    <span class="n">name</span><span class="o">=</span><span class="n">f</span><span class="s1">&#39;response_thread_</span><span class="si">{i}</span><span class="s1">&#39;</span>
+                <span class="p">)</span>
+                <span class="n">res_thread</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_response_threads</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">res_thread</span><span class="p">)</span>
+
+
+            <span class="n">default_port</span> <span class="o">=</span> <span class="n">global_settings</span><span class="p">[</span><span class="s1">&#39;default_port&#39;</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">log_info</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Serving on </span><span class="si">{default_port}</span><span class="s2">...&quot;</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_startup_condition</span><span class="p">:</span>
+                <span class="c1"># Alert waiting parties that we&#39;re ready</span>
+                <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_startup_condition</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_startup_condition</span><span class="o">.</span><span class="n">notify_all</span><span class="p">()</span>
+
+            <span class="c1"># Just keep serving!</span>
+            <span class="n">web</span><span class="o">.</span><span class="n">run_app</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_app</span><span class="p">,</span>
+                <span class="n">port</span><span class="o">=</span><span class="n">default_port</span><span class="p">,</span>
+                <span class="n">handle_signals</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                <span class="n">access_log</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">logger</span>
+            <span class="p">)</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="ne">KeyboardInterrupt</span><span class="p">):</span>
+                <span class="kn">import</span> <span class="nn">traceback</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">log_critical</span><span class="p">(</span><span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">())</span>
+                <span class="nb">print</span> <span class="p">(</span><span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">())</span>
+
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_shutdown</span><span class="p">())</span>
+
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_startup_condition</span><span class="p">:</span>
+                <span class="c1"># Make sure we clean up if something went wrong too</span>
+                <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_startup_condition</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_startup_condition</span><span class="o">.</span><span class="n">notify_all</span><span class="p">()</span>
+
+            <span class="k">return</span></div>
+
+    <span class="k">def</span> <span class="nf">base_context</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The initial context we use when rendering jinja2 templates</span>
+<span class="sd">        for use in the hive webfront</span>
+<span class="sd">        :return: dict</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s1">&#39;_hive_name&#39;</span> <span class="p">:</span> <span class="n">global_settings</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span>
+        <span class="p">}</span>
+
+    <span class="c1"># -- Private Interface (reserved for running instance)</span>
+
+    <span class="k">def</span> <span class="nf">_node_exists</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Check the database for the node</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">query</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_database</span><span class="o">.</span><span class="n">new_query</span><span class="p">(</span>
+            <span class="n">NodeRegister</span><span class="p">,</span> <span class="n">NodeRegister</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">equals</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">query</span><span class="o">.</span><span class="n">count</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
+
+
+    <span class="k">def</span> <span class="nf">_get_node</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">NodeRegister</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Aquire a node if it exists. Otherwise return None</span>
+<span class="sd">        :param name: The name of the node to search for</span>
+<span class="sd">        :return: NodeRegister|None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_database</span><span class="o">.</span><span class="n">new_query</span><span class="p">(</span>
+            <span class="n">NodeRegister</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">get_or_null</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_register_node</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">payload</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Register a node with our setup</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span> \
+            <span class="nb">isinstance</span><span class="p">(</span><span class="n">payload</span><span class="p">,</span> <span class="nb">dict</span><span class="p">),</span> \
+            <span class="s1">&#39;Registration payload must be a dict&#39;</span>
+        <span class="k">assert</span> \
+            <span class="nb">all</span><span class="p">(</span><span class="n">k</span> <span class="ow">in</span> <span class="n">payload</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;status&#39;</span><span class="p">)),</span> \
+            <span class="s1">&#39;Registration payload missing name or status&#39;</span>
+
+        <span class="k">if</span> <span class="n">payload</span><span class="p">[</span><span class="s1">&#39;status&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">NODE_TERM</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">log_info</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Register Node: </span><span class="si">{payload[&#39;name&#39;]}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">log_info</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Deregister Node: </span><span class="si">{payload[&#39;name&#39;]}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_node</span><span class="p">(</span><span class="n">payload</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">])</span>
+
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">lock</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">node</span><span class="p">:</span>
+
+                <span class="k">if</span> <span class="n">payload</span><span class="p">[</span><span class="s1">&#39;status&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">NODE_TERM</span><span class="p">:</span>
+                    <span class="c1"># We&#39;re removing the node. Shouldn&#39;t be</span>
+                    <span class="c1"># here</span>
+                    <span class="k">return</span> <span class="mi">0</span>
+
+                <span class="bp">self</span><span class="o">.</span><span class="n">_port_count</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="n">port</span> <span class="o">=</span> <span class="n">global_settings</span><span class="p">[</span><span class="s1">&#39;default_port&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_port_count</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_database</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+                    <span class="n">NodeRegister</span><span class="p">,</span>
+                    <span class="n">name</span><span class="o">=</span><span class="n">payload</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">],</span>
+                    <span class="n">status</span><span class="o">=</span><span class="n">payload</span><span class="p">[</span><span class="s1">&#39;status&#39;</span><span class="p">],</span>
+                    <span class="n">port</span><span class="o">=</span><span class="n">port</span>
+                <span class="p">)</span>
+                <span class="k">return</span> <span class="n">port</span>
+
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">destroy</span> <span class="o">=</span> <span class="kc">None</span>
+
+                <span class="c1"># We&#39;ve seen this node before (at least - we should</span>
+                <span class="c1"># have)</span>
+                <span class="k">if</span> <span class="n">payload</span><span class="p">[</span><span class="s1">&#39;status&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">NODE_TERM</span><span class="p">:</span>
+                    <span class="c1"># Clean up this node</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_remove_node</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+                    <span class="k">return</span> <span class="mi">0</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">node</span><span class="o">.</span><span class="n">status</span> <span class="o">=</span> <span class="n">payload</span><span class="p">[</span><span class="s1">&#39;status&#39;</span><span class="p">]</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_database</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+                    <span class="k">return</span> <span class="n">node</span><span class="o">.</span><span class="n">port</span>
+
+
+    <span class="k">def</span> <span class="nf">_remove_node</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node_instance</span><span class="p">:</span> <span class="n">NodeRegister</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Terminate all connections with a node. Because we base everything</span>
+<span class="sd">        off the proxy, this becomes doable without too much headache.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">lock</span><span class="p">:</span> <span class="c1"># reentrant</span>
+
+            <span class="k">if</span> <span class="n">node_instance</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_services</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_services</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">node_instance</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">node_instance</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tasks</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_tasks</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">node_instance</span><span class="p">)</span>
+
+            <span class="k">for</span> <span class="n">filter_</span><span class="p">,</span> <span class="n">subinfo</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_subscriptions</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="n">to_rem</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">subinfo</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">d</span><span class="o">.</span><span class="n">proxy</span> <span class="o">==</span> <span class="n">node_instance</span><span class="p">:</span>
+                        <span class="n">to_rem</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">to_rem</span><span class="p">:</span>
+                    <span class="n">subinfo</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">_database</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">node_instance</span><span class="p">)</span>
+
+
+    <span class="k">def</span> <span class="nf">_register_service</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">payload</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Register a service</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">payload</span><span class="p">,</span> <span class="nb">dict</span><span class="p">),</span> \
+            <span class="s1">&#39;Service Registration payload must be a dict&#39;</span>
+
+        <span class="k">assert</span> <span class="nb">all</span><span class="p">(</span><span class="n">k</span> <span class="ow">in</span> <span class="n">payload</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;node&#39;</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">)),</span> \
+            <span class="s1">&#39;Service Registration payload missing &quot;node&quot; or &quot;name&quot;&#39;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">log_info</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Register Service: </span><span class="si">{payload[&#39;name&#39;]}</span><span class="s2"> to </span><span class="si">{payload[&#39;node&#39;]}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_node</span><span class="p">(</span><span class="n">payload</span><span class="p">[</span><span class="s1">&#39;node&#39;</span><span class="p">])</span>
+        <span class="k">assert</span> <span class="n">node</span><span class="p">,</span> <span class="n">f</span><span class="s1">&#39;Node </span><span class="si">{payload[&quot;node&quot;]}</span><span class="s1"> not found&#39;</span>
+
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">lock</span><span class="p">:</span>
+            <span class="n">known_services</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_services</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="p">{})</span>
+
+            <span class="k">assert</span> \
+                <span class="n">payload</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">known_services</span><span class="p">,</span> \
+                <span class="n">f</span><span class="s1">&#39;The service </span><span class="si">{payload[&quot;name&quot;]}</span><span class="s1"> already exists for </span><span class="si">{payload[&quot;node&quot;]}</span><span class="s1">&#39;</span>
+
+            <span class="n">known_services</span><span class="p">[</span><span class="n">payload</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]]</span> <span class="o">=</span> <span class="n">payload</span>
+
+        <span class="k">return</span> <span class="mi">0</span>
+
+
+    <span class="k">def</span> <span class="nf">_register_subscription</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">payload</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Register a subscription</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span> \
+            <span class="nb">isinstance</span><span class="p">(</span><span class="n">payload</span><span class="p">,</span> <span class="nb">dict</span><span class="p">),</span> \
+            <span class="s1">&#39;Subscription Registration payload must be a dict&#39;</span>
+        <span class="k">assert</span> \
+            <span class="nb">all</span><span class="p">(</span><span class="n">k</span> <span class="ow">in</span> <span class="n">payload</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;node&#39;</span><span class="p">,</span> <span class="s1">&#39;filter&#39;</span><span class="p">,</span> <span class="s1">&#39;endpoint&#39;</span><span class="p">,</span> <span class="s1">&#39;port&#39;</span><span class="p">)),</span> \
+            <span class="s1">&#39;Subscription Registration payload missing &quot;node&quot;, &#39;</span> \
+            <span class="s1">&#39; &quot;filter&quot;, &quot;port&quot; or &quot;endpoint&quot;&#39;</span>
+
+        <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_node</span><span class="p">(</span><span class="n">payload</span><span class="p">[</span><span class="s1">&#39;node&#39;</span><span class="p">])</span>
+        <span class="k">assert</span> <span class="n">node</span><span class="p">,</span> <span class="n">f</span><span class="s1">&#39;Node </span><span class="si">{payload[&quot;node&quot;]}</span><span class="s1"> not found&#39;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">log_info</span><span class="p">(</span>
+            <span class="n">f</span><span class="s2">&quot;Register Subscription: </span><span class="si">{payload[&#39;node&#39;]}</span><span class="s2"> to </span><span class="si">{payload[&#39;filter&#39;]}</span><span class="s2">&quot;</span>
+        <span class="p">)</span>
+
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">lock</span><span class="p">:</span>
+
+            <span class="n">known_subscriptions</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_subscriptions</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span>
+                <span class="n">payload</span><span class="p">[</span><span class="s1">&#39;filter&#39;</span><span class="p">],</span> <span class="p">[]</span>
+            <span class="p">)</span>
+            <span class="n">known_subscriptions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">SubscriptionInfo</span><span class="p">(</span>
+                    <span class="n">payload</span><span class="p">[</span><span class="s1">&#39;endpoint&#39;</span><span class="p">],</span>
+                    <span class="n">payload</span><span class="p">[</span><span class="s1">&#39;port&#39;</span><span class="p">],</span>
+                    <span class="n">node</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+
+        <span class="k">return</span> <span class="mi">0</span>
+
+
+    <span class="k">def</span> <span class="nf">_register_task</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">payload</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Register a task</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span> \
+            <span class="nb">isinstance</span><span class="p">(</span><span class="n">payload</span><span class="p">,</span> <span class="nb">dict</span><span class="p">),</span> \
+            <span class="s1">&#39;Task Registration payload must be a dict&#39;</span>
+        <span class="k">assert</span> \
+            <span class="nb">all</span><span class="p">(</span><span class="n">k</span> <span class="ow">in</span> <span class="n">payload</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;node&#39;</span><span class="p">,</span> <span class="s1">&#39;filter&#39;</span><span class="p">,</span> <span class="s1">&#39;endpoint&#39;</span><span class="p">,</span> <span class="s1">&#39;port&#39;</span><span class="p">)),</span> \
+            <span class="s1">&#39;Task Registration payload missing &quot;node&quot;, &#39;</span> \
+            <span class="s1">&#39; &quot;filter&quot;, &quot;port&quot; or &quot;endpoint&quot;&#39;</span>
+
+        <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_node</span><span class="p">(</span><span class="n">payload</span><span class="p">[</span><span class="s1">&#39;node&#39;</span><span class="p">])</span>
+        <span class="k">assert</span> <span class="n">node</span><span class="p">,</span> <span class="n">f</span><span class="s1">&#39;Node </span><span class="si">{payload[&quot;node&quot;]}</span><span class="s1"> not found&#39;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">log_info</span><span class="p">(</span>
+            <span class="n">f</span><span class="s2">&quot;Register Task: </span><span class="si">{payload[&#39;node&#39;]}</span><span class="s2"> to </span><span class="si">{payload[&#39;name&#39;]}</span><span class="s2">&quot;</span>
+        <span class="p">)</span>
+
+        <span class="n">task_required_data</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">lock</span><span class="p">:</span>
+            <span class="n">known_tasks</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tasks</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">proxy</span><span class="p">,</span> <span class="p">{})</span>
+
+            <span class="k">assert</span> \
+                <span class="n">payload</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">known_tasks</span><span class="p">,</span> \
+                <span class="n">f</span><span class="s1">&#39;The task </span><span class="si">{payload[&quot;name&quot;]}</span><span class="s1"> already exists for </span><span class="si">{payload[&quot;node&quot;]}</span><span class="s1">&#39;</span>
+
+            <span class="c1">#</span>
+            <span class="c1"># We have to do quite a few things here...</span>
+            <span class="c1"># 1. Build an endpoint for the task</span>
+            <span class="c1"># task_required_data[&#39;endpoint&#39;] = </span>
+            <span class="c1"># 2. Based on the task info and any parameter definitions, we hold</span>
+            <span class="c1">#    that until we request that action be taken</span>
+            <span class="c1"># 3. Cron is obviously a little different but the idea is mostly the same</span>
+            <span class="c1">#</span>
+
+        <span class="k">return</span> <span class="n">task_required_data</span>
+
+
+
+    <span class="k">def</span> <span class="nf">_delegate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">payload</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Based on the path, we have to handle our work accordingly.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">service_name</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">log_debug</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Message from: </span><span class="si">{service_name}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_response_queue</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">PrioritizedDispatch</span><span class="p">(</span>
+            <span class="n">payload</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;priority&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>  <span class="c1"># Prio (lower is higher prio!)</span>
+            <span class="n">service_name</span><span class="p">,</span>                <span class="c1"># Name</span>
+            <span class="n">payload</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;node&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>   <span class="c1"># Node</span>
+            <span class="n">payload</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;payload&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="c1"># Payload</span>
+        <span class="p">))</span>
+
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_response_condition</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_response_condition</span><span class="o">.</span><span class="n">notify</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="p">{</span> <span class="s1">&#39;result&#39;</span> <span class="p">:</span> <span class="kc">True</span> <span class="p">}</span> <span class="c1"># For now</span>
+
+
+
+    <span class="k">def</span> <span class="nf">_recieve_task_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">payload</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Based on the task information coming in, we store the information for</span>
+<span class="sd">        our user to digest via the web server.</span>
+<span class="sd">        :param path: The url path that we&#39;ve entered with</span>
+<span class="sd">        :param payload: The payload that we&#39;re given</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="mi">0</span>
+
+
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">_shutdown</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_app</span><span class="p">:</span>
+            <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_app</span><span class="o">.</span><span class="n">shutdown</span><span class="p">()</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_response_condition</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_abort</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_response_condition</span><span class="o">.</span><span class="n">notify_all</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_database</span><span class="o">.</span><span class="n">disconnect</span><span class="p">()</span>
+
+
+    <span class="k">def</span> <span class="nf">_dispatch</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Based on what&#39;s available from the queue, ship out messages</span>
+<span class="sd">        to any listening subsribers </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+
+            <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_response_condition</span><span class="p">:</span>
+                <span class="k">while</span> <span class="p">(</span><span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_abort</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_response_queue</span><span class="o">.</span><span class="n">empty</span><span class="p">():</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_response_condition</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>
+
+            <span class="n">dispatch_object</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_response_lock</span><span class="p">:</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_abort</span><span class="p">:</span>
+                    <span class="k">break</span>
+
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">dispatch_object</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_response_queue</span><span class="o">.</span><span class="n">get_nowait</span><span class="p">()</span>
+                <span class="k">except</span> <span class="n">queue</span><span class="o">.</span><span class="n">Empty</span><span class="p">:</span>
+                    <span class="k">continue</span> <span class="c1"># We must have missed it</span>
+
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">dispatch_object</span><span class="p">:</span>
+                <span class="k">continue</span> <span class="c1"># How??</span>
+
+            <span class="c1"># We have a dispatch - locate any matching subscriptions</span>
+            <span class="k">for</span> <span class="n">filter_</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_subscriptions</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">fnmatch</span><span class="o">.</span><span class="n">fnmatch</span><span class="p">(</span><span class="n">dispatch_object</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">filter_</span><span class="p">):</span>
+
+                    <span class="c1">#</span>
+                    <span class="c1"># We have a match - now it&#39;s time to ship this</span>
+                    <span class="c1"># payload to the subscriptions undernearth</span>
+                    <span class="c1">#</span>
+                    <span class="k">for</span> <span class="n">si</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_subscriptions</span><span class="p">[</span><span class="n">filter_</span><span class="p">]:</span>
+                        <span class="n">url</span> <span class="o">=</span> <span class="n">f</span><span class="s1">&#39;http://127.0.0.1:</span><span class="si">{si.port}{si.endpoint}</span><span class="s1">&#39;</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">_send_to_subscription</span><span class="p">(</span>
+                            <span class="n">url</span><span class="p">,</span> <span class="n">dispatch_object</span><span class="o">.</span><span class="n">payload</span>
+                        <span class="p">)</span>
+
+
+    <span class="k">def</span> <span class="nf">_send_to_subscription</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">payload</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">payload</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">result</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;Sending to sub failed!&quot;</span><span class="p">)</span> <span class="c1"># FIXME</span>
+
+
+    <span class="k">def</span> <span class="nf">_init_database</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize the database and make sure we have all the right bits</span>
+<span class="sd">        :return: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_database</span> <span class="o">=</span> <span class="n">_DatabaseIntegration</span><span class="o">.</span><span class="n">start_database</span><span class="p">(</span>
+            <span class="n">global_settings</span><span class="p">[</span><span class="s1">&#39;database&#39;</span><span class="p">]</span>
+        <span class="p">)</span>
+
+        <span class="n">active_tables</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_database</span><span class="o">.</span><span class="n">get_table_names</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">TableDefinition</span><span class="o">.</span><span class="n">db_name</span><span class="p">()</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">active_tables</span><span class="p">:</span>
+            <span class="c1">#</span>
+            <span class="c1"># The table definition is a rather vital table</span>
+            <span class="c1"># We need to make sure it&#39;s available</span>
+            <span class="c1">#</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_database</span><span class="o">.</span><span class="n">_create_table</span><span class="p">(</span><span class="n">TableDefinition</span><span class="p">)</span>
+            <span class="n">active_tables</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">TableDefinition</span><span class="o">.</span><span class="n">db_name</span><span class="p">())</span>
+
+        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">table</span> <span class="ow">in</span> <span class="n">RequiredTables</span><span class="p">:</span>
+
+            <span class="k">if</span> <span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">active_tables</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_database</span><span class="o">.</span><span class="n">_create_table</span><span class="p">(</span><span class="n">table</span><span class="p">)</span>
+                <span class="n">TableDefinition</span><span class="o">.</span><span class="n">register_table</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_database</span><span class="p">,</span> <span class="n">table</span><span class="p">)</span></div>
+
+            <span class="c1"># else:</span>
+            <span class="c1">#     TableDefinition.validate_table(table)</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Michael McCartney
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

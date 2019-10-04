@@ -80,12 +80,20 @@
               <p class="caption"><span class="caption-text">Quick Start</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="basics/install.html">Install</a></li>
-<li class="toctree-l1"><a class="reference internal" href="quickstart/root.html">Simple Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart/root.html">Starting Off</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Features</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="basics/words.html">Interface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="basics/model.html">Primitives</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api/root.html">Controller</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Contributing</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="developers/codestandards.html">Code Standards</a></li>
 </ul>
 
             
@@ -174,7 +182,7 @@
 <h1>The Why<a class="headerlink" href="#the-why" title="Permalink to this headline">¶</a></h1>
 <a class="reference internal image-reference" href="_images/scale_diagram.svg"><div align="center" class="align-center"><img alt="_images/scale_diagram.svg" height="350px" src="_images/scale_diagram.svg" width="350px" /></div>
 </a>
-<p>In the modern app arena, we often have use for very atomic level operations that need to communicate with other such atomic services. This often leads to large waterfall code or, promises, or some form of chain-reactive system. In order to create a highly independent system, we turn to service/subscription models (also known as pub-sub models) in order to keep the low level “nodes” from needing anything but themselves and a connection to a sort-of central nervous system.</p>
+<p>In the modern app arena, we often have use for very atomic level operations that need to communicate with other such atomic services. This often leads to large waterfall code, promises, or some form of chain-reactive system when instead we want these operations to be self sufficient when perhaps the network isn’t running as smooth as it should. In order to create a highly independent system, we turn to service/subscription models (also known as pub-sub models) in order to keep the low level “nodes” from needing anything but themselves and a connection to a sort-of central nervous system.</p>
 <p>This approach can take many forms and doesn’t fit all use cases but it’s a powerful tool for horizontally scaling your software.</p>
 <div class="toctree-wrapper compound">
 <p class="caption"><span class="caption-text">Quick Start</span></p>
@@ -182,14 +190,14 @@
 <li class="toctree-l1"><a class="reference internal" href="basics/install.html">Install</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="basics/install.html#prerequisites">Prerequisites</a></li>
 <li class="toctree-l2"><a class="reference internal" href="basics/install.html#contributers">Contributers</a></li>
-<li class="toctree-l2"><a class="reference internal" href="basics/install.html#pypi">PyPi</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/install.html#pypi-non-contributers">PyPi (Non Contributers)</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="quickstart/root.html">Simple Example</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="quickstart/root.html#rootcontroller">RootController</a></li>
-<li class="toctree-l2"><a class="reference internal" href="quickstart/root.html#service-node">Service Node</a></li>
-<li class="toctree-l2"><a class="reference internal" href="quickstart/root.html#subscription-node">Subscription Node</a></li>
-<li class="toctree-l2"><a class="reference internal" href="quickstart/root.html#simplicity">Simplicity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart/root.html">Starting Off</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="quickstart/root.html#what-is-a-hive">What is a Hive</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart/root.html#hm-command"><code class="docutils literal notranslate"><span class="pre">hm</span></code> Command</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart/root.html#create-a-project">Create a Project</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart/root.html#create-a-node">Create a Node</a></li>
 </ul>
 </li>
 </ul>
@@ -206,6 +214,22 @@
 <li class="toctree-l2"><a class="reference internal" href="basics/model.html#backend">Backend</a></li>
 <li class="toctree-l2"><a class="reference internal" href="basics/model.html#network">Network</a></li>
 <li class="toctree-l2"><a class="reference internal" href="basics/model.html#resilience">Resilience</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api/root.html">Controller</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">Contributing</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="developers/codestandards.html">Code Standards</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="developers/codestandards.html#classes">Classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="developers/codestandards.html#class-methods">Class Methods</a></li>
 </ul>
 </li>
 </ul>

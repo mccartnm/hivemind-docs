@@ -28,7 +28,7 @@
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Simple Example" href="../quickstart/root.html" />
+    <link rel="next" title="Starting Off" href="../quickstart/root.html" />
     <link rel="prev" title="Hivemind" href="../index.html" /> 
 
   
@@ -85,17 +85,27 @@
 <li class="toctree-l2"><a class="reference internal" href="#contributers">Contributers</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#environment">Environment</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#git">Git</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#requirements-txt">requirements.txt</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pip">pip</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#pypi">PyPi</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pypi-non-contributers">PyPi (Non Contributers)</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../quickstart/root.html">Simple Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart/root.html">Starting Off</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Features</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="words.html">Interface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="model.html">Primitives</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api/root.html">Controller</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Contributing</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../developers/codestandards.html">Code Standards</a></li>
 </ul>
 
             
@@ -201,15 +211,36 @@ C:<span class="se">\&gt;</span> ~<span class="se">\v</span>irtualenv<span class=
 <div class="section" id="git">
 <h3>Git<a class="headerlink" href="#git" title="Permalink to this headline">¶</a></h3>
 <p>Once you have a virtual environment set up, let’s grab the source</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>~$&gt; git clone https://github.com/mccartnm/hivemind.git
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="o">(</span>hm<span class="o">)</span> ~$&gt; git clone https://github.com/mccartnm/hivemind.git
 </pre></div>
 </div>
 </div>
+<div class="section" id="requirements-txt">
+<h3>requirements.txt<a class="headerlink" href="#requirements-txt" title="Permalink to this headline">¶</a></h3>
+<p>With the code cloned, grab the development packages.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="o">(</span>hm<span class="o">)</span> ~$&gt; <span class="nb">cd</span> hivemind
+<span class="o">(</span>hm<span class="o">)</span> ~$&gt; pip install -r requirements/development.txt
+<span class="c1"># ...</span>
+</pre></div>
 </div>
-<div class="section" id="pypi">
-<h2>PyPi<a class="headerlink" href="#pypi" title="Permalink to this headline">¶</a></h2>
+<p>That should install the required thirdparty libraries. It may take a moment to grab them all. Any time a package dependency changes, you should be able to run that same command to upgrade/install the changes.</p>
+</div>
+<div class="section" id="pip">
+<h3>pip<a class="headerlink" href="#pip" title="Permalink to this headline">¶</a></h3>
+<p>With the code available and the developer packages at your disposal, let’s install (with symlinks) to set up the CLI for us.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="o">(</span>hm<span class="o">)</span> ~$&gt; pip install -e .
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">-e</span></code> is important! Otherwise you may not see your changes reflected as you work.</p>
+</div>
+<p>Once that’s done, you should be able to run the <code class="docutils literal notranslate"><span class="pre">hm</span></code> command and see the help print out.</p>
+</div>
+</div>
+<div class="section" id="pypi-non-contributers">
+<h2>PyPi (Non Contributers)<a class="headerlink" href="#pypi-non-contributers" title="Permalink to this headline">¶</a></h2>
 <p>Coming soon… (once available on pypi or at least <code class="docutils literal notranslate"><span class="pre">setup.py</span></code>)</p>
-<p>If you’re really itching to try, clone the <a class="reference external" href="http://github.com/mccartnm/hivemind">repo</a> and add it to your <code class="docutils literal notranslate"><span class="pre">PYTHONPATH</span></code>/use <code class="docutils literal notranslate"><span class="pre">sys.path.append</span></code> on your scripts.</p>
 </div>
 </div>
 
@@ -221,7 +252,7 @@ C:<span class="se">\&gt;</span> ~<span class="se">\v</span>irtualenv<span class=
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../quickstart/root.html" class="btn btn-neutral float-right" title="Simple Example" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="../quickstart/root.html" class="btn btn-neutral float-right" title="Starting Off" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="../index.html" class="btn btn-neutral" title="Hivemind" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
